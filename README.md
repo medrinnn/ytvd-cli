@@ -52,6 +52,11 @@ Example
    ```bash
    ytvd https://www.youtube.com/watch?v=dQw4w9WgXcQ
    ```
+Or
+
+   ```bash
+   ytvd 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+   ```
 
 #### Download specific format or quality
 
