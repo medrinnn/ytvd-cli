@@ -47,17 +47,6 @@ To download a YouTube video in the best available quality, simply run the follow
    ytvd <video_url>
    ```
 
-Example 
-
-   ```bash
-   ytvd https://www.youtube.com/watch?v=dQw4w9WgXcQ
-   ```
-Or
-
-   ```bash
-   ytvd 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-   ```
-
 #### Download specific format or quality
 
 To specify a particular format or quality, use the `-f` option with the format code:
