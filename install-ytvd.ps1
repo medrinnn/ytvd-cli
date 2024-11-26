@@ -33,7 +33,7 @@ pip install -U yt-dlp
 Write-Host "yt-dlp installation complete." -ForegroundColor Green
 
 Write-Host "Installing ytvd-cli..." -ForegroundColor Yellow
-$scriptUrl = "https://raw.githubusercontent.com/yourusername/ytvd-cli/main/ytvd.py"
+$scriptUrl = "https://raw.githubusercontent.com/medrinnn/ytvd-cli/refs/heads/main/ytvd.py"
 $scriptPath = "$env:ProgramFiles\ytvd-cli\ytvd.py"
 Invoke-WebRequest -Uri $scriptUrl -OutFile $scriptPath
 
