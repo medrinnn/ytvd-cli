@@ -28,11 +28,11 @@ fi
 
 echo "Installing ytvd-cli dependencies..."
 
-python3 -m pip install -r https://raw.githubusercontent.com/yourusername/ytvd-cli/main/requirements.txt
+python3 -m pip install -r https://raw.githubusercontent.com/medrinnn/ytvd-cli/refs/heads/main/requirements.txt
 
 echo "Downloading ytvd-cli script..."
 
-curl -L -o /usr/local/bin/ytvd https://raw.githubusercontent.com/yourusername/ytvd-cli/main/ytvd.py
+curl -L -o /usr/local/bin/ytvd https://raw.githubusercontent.com/medrinnn/ytvd-cli/refs/heads/main/ytvd.py
 
 chmod +x /usr/local/bin/ytvd
 
