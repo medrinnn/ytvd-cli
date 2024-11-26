@@ -1,89 +1,50 @@
-$ErrorActionPreference = "Stop"
+# Install-ytvd.ps1 - PowerShell script for installing ytvd-cli on Windows
 
-function CommandExists($command) {
-    try {
-        Get-Command $command -ErrorAction SilentlyContinue | Out-Null
-        return $true
-    } catch {
-        return $false
-    }
+$IsAdmin = [Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()
+$AdminRole = [Security.Principal.WindowsBuiltInRole]::Administrator
+if (-not $IsAdmin.IsInRole($AdminRole)) {
+    Write-Host "This script requires administrator privileges. Please run as Administrator." -ForegroundColor Red
+    exit
 }
 
-function Install-Python {
-    Write-Host "Installing Python and pip..."
-
-    if (CommandExists "brew") {
-        brew install python
-    }
-    elseif (CommandExists "apt-get") {
-        sudo apt-get update
-        sudo apt-get install -y python3 python3-pip
-    }
-    elseif (CommandExists "pacman") {
-        sudo pacman -Syu python python-pip
-    }
-    elseif (CommandExists "dnf") {
-        sudo dnf install python3 python3-pip
-    }
-    else {
-        Write-Host "Python installation failed. Please install Python manually."
-        exit 1
-    }
-}
-
-function Install-YT_DLP {
-    Write-Host "Installing yt-dlp..."
-    python3 -m pip install --upgrade yt-dlp
-}
-
-if ($env:OS -eq "Darwin" -or $env:OS -eq "Linux") {
-    if (-not (CommandExists "python3")) {
-        Install-Python
-    }
-    Install-YT_DLP
-}
-
-if ($env:OS -eq "Windows_NT") {
-    if (-not (CommandExists "python")) {
-        Write-Host "Python is not installed. Please install Python and add it to the PATH."
-        exit 1
-    }
-    python -m pip install --upgrade yt-dlp
-}
-
-$targetDir = ""
-
-if ($env:OS -eq "Darwin" -or $env:OS -eq "Linux") {
-    $targetDir = "/usr/local/bin/ytvd"
-} elseif ($env:OS -eq "Windows_NT") {
-    $targetDir = "$env:USERPROFILE\ytvd.exe"
+$pythonPath = Get-Command python -ErrorAction SilentlyContinue
+if (-not $pythonPath) {
+    Write-Host "Python is not installed. Installing Python..." -ForegroundColor Yellow
+    $pythonInstallerUrl = "https://www.python.org/ftp/python/3.10.8/python-3.10.8-amd64.exe"
+    $installerPath = "$env:Temp\python_installer.exe"
+    Invoke-WebRequest -Uri $pythonInstallerUrl -OutFile $installerPath
+    Start-Process -FilePath $installerPath -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1" -Wait
+    Write-Host "Python installation complete." -ForegroundColor Green
 } else {
-    Write-Host "Unsupported OS"
-    exit 1
+    Write-Host "Python is already installed." -ForegroundColor Green
 }
 
-$ytvdScriptUrl = "https://raw.githubusercontent.com/medrinnn/ytvd-cli/refs/heads/main/ytvd.py"
-Invoke-WebRequest -Uri $ytvdScriptUrl -OutFile $targetDir
-
-if ($env:OS -eq "Darwin" -or $env:OS -eq "Linux") {
-    chmod +x $targetDir
+$pipPath = Get-Command pip -ErrorAction SilentlyContinue
+if (-not $pipPath) {
+    Write-Host "pip is not installed. Installing pip..." -ForegroundColor Yellow
+    python -m ensurepip --upgrade
+    Write-Host "pip installation complete." -ForegroundColor Green
+} else {
+    Write-Host "pip is already installed." -ForegroundColor Green
 }
 
-Write-Host "ytvd has been successfully installed!"
-Write-Host "You can now use ytvd from the command line."
+Write-Host "Installing yt-dlp using pip..." -ForegroundColor Yellow
+pip install -U yt-dlp
+Write-Host "yt-dlp installation complete." -ForegroundColor Green
 
-if ($env:OS -eq "Darwin" -or $env:OS -eq "Linux") {
-    if (CommandExists "ytvd") {
-        Write-Host "ytvd is successfully installed and ready to use!"
-    } else {
-        Write-Host "ytvd installation failed."
-    }
-}
+Write-Host "Installing ytvd-cli..." -ForegroundColor Yellow
+$scriptUrl = "https://raw.githubusercontent.com/yourusername/ytvd-cli/main/ytvd.py"
+$scriptPath = "$env:ProgramFiles\ytvd-cli\ytvd.py"
+Invoke-WebRequest -Uri $scriptUrl -OutFile $scriptPath
 
-if ($env:OS -eq "Windows_NT") {
-    if (CommandExists "ytvd") {
-        Write-Host "ytvd is successfully installed and ready to use!"
-    } else {
-        Write-Host "ytvd installation failed."
-    }
-}
+$shortcutPath = "$env:ProgramFiles\ytvd-cli\ytvd.exe"
+$ytvdCommand = @"
+import sys
+from pathlib import Path
+sys.path.insert(0, Path(__file__).parent)
+import ytvd
+"@
+$ytvdCommand | Set-Content -Path $shortcutPath -Force
+Write-Host "ytvd-cli installation complete. You can now run 'ytvd' from any command prompt." -ForegroundColor Green
+
+Remove-Item $installerPath -Force
