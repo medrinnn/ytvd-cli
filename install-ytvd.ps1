@@ -62,7 +62,7 @@ if ($env:OS -eq "Darwin" -or $env:OS -eq "Linux") {
     exit 1
 }
 
-$ytvdScriptUrl = "https://raw.githubusercontent.com/yourusername/ytvd-cli/main/ytvd.py"
+$ytvdScriptUrl = "https://raw.githubusercontent.com/medrinnn/ytvd-cli/refs/heads/main/ytvd.py"
 Invoke-WebRequest -Uri $ytvdScriptUrl -OutFile $targetDir
 
 if ($env:OS -eq "Darwin" -or $env:OS -eq "Linux") {
