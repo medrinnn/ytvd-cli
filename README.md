@@ -27,14 +27,14 @@ You can install `ytvd-cli` on **macOS**, **Linux**, and **Windows** using a simp
 Open **PowerShell** and run the following command to download and execute the installation script:
 
    ```powershell
-   Invoke-WebRequest -Uri "https://raw.githubusercontent.com/yourusername/ytvd-cli/main/install-ytvd.ps1" -OutFile "install-ytvd.ps1"; & ".\install-ytvd.ps1"
+   Invoke-WebRequest -Uri "https://raw.githubusercontent.com/medrinnn/ytvd-cli/refs/heads/main/install-ytvd.ps1" -OutFile "install-ytvd.ps1"; & ".\install-ytvd.ps1"
    ```
 #### Linux / macOS :
 
 Open a terminal and run the following command to download and execute the installation script:
 
    ```bash
-   curl -L -o install-ytvd.sh https://raw.githubusercontent.com/yourusername/ytvd-cli/main/install-ytvd.sh && bash install-ytvd.sh
+   curl -L -o install-ytvd.sh https://raw.githubusercontent.com/medrinnn/ytvd-cli/refs/heads/main/install.ytvd.sh && bash install-ytvd.sh
    ```
 
 ## Usage 
