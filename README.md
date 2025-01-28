@@ -1,12 +1,11 @@
 # ytvd-cli: A Simple YouTube Video Downloader
 
-`ytvd-cli` is a command-line tool to download YouTube videos in any format and quality using the powerful `yt-dlp` library. This tool is compatible with **macOS**, **Linux** (Debian-based, Arch-based, Fedora-based), and **Windows**.
+`ytvd-cli` is a command-line tool to download YouTube videos in any format and quality using the powerful `yt-dlp` library. This tool is compatible with **macOS**, **Linux** (Debian-based, Arch-based, Fedora-based).
 
 ## Features
 
 - **Download videos in best quality**: It automatically selects the best available video and audio streams.
 - **Simple command-line interface**: Just provide a URL, and the video will be downloaded.
-- **Cross-platform**: Works on macOS, Linux, and Windows.
 - **Download subtitles**: Download subtitles with the video using the `--write-sub` option.
 - **Limit download speed**: Use the `--limit-rate` option to control download speed.
 
@@ -18,18 +17,9 @@ Before using `ytvd-cli`, ensure that **Python 3** is installed on your system. T
 
 ## Installation
 
-You can install `ytvd-cli` on **macOS**, **Linux**, and **Windows** using a simple one-command installation process.
+You can install `ytvd-cli` on **macOS** and **Linux** using a simple one-command installation process.
 
-### **1. Install on macOS / Linux / Windows**
-
-#### Windows (via PowerShell):
-
-Open **PowerShell** and run the following command to download and execute the installation script:
-
-   ```powershell
-   Invoke-WebRequest -Uri "https://raw.githubusercontent.com/medrinnn/ytvd-cli/refs/heads/main/install-ytvd.ps1" -OutFile "install-ytvd.ps1"; & ".\install-ytvd.ps1"
-   ```
-#### Linux / macOS :
+### **1. Install on macOS or Linux **
 
 Open a terminal and run the following command to download and execute the installation script:
 
