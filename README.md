@@ -83,3 +83,7 @@ To download an entire playlist, simply provide the playlist URL:
    ```bash
    ytvd <playlist_url>
    ```
+### TODO
+- [ ] Rewrite In Rust
+- [ ] Rewrite The Install Script
+- [ ] Publish In The AUR 
